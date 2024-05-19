@@ -1,5 +1,12 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:7182/graduate-work
+    url: jdbc:postgresql://localhost:5432/graduate-work
     password: 1234567890
     username: AccountTest
+
+  liquibase:
+    change-log: liquibase/changelog-master.yaml
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
