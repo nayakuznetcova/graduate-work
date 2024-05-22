@@ -16,6 +16,6 @@ public class AdEntity extends IdentifiedObject {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
     @OneToOne
-    @JoinColumn(name = "image", referencedColumnName = "id")
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
     private ImageEntity image;
 }

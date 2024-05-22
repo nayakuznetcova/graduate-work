@@ -19,10 +19,11 @@ public class UserEntity extends IdentifiedObject {
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToOne
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
     private ImageEntity image;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<AdEntity> ads;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<CommentEntity> comments;
 
 }
