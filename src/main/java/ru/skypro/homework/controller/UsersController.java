@@ -22,9 +22,9 @@ public class UsersController {
         return null;
     }
 
-    @PatchMapping("/me")
+    @GetMapping("/me")
     public ResponseEntity<UserDto> getInfoUser(@RequestBody UserDto user,
-                                                        Authentication authentication) {
+                                               Authentication authentication) {
         return null;
     }
 
