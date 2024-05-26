@@ -6,7 +6,7 @@ create table images
     id         serial primary key,
     file_size  bigint,
     media_type text,
-    data       bytea
+    path       text
 );
 
 --changeset nayakuznetcova:create_users

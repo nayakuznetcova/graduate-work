@@ -11,5 +11,5 @@ import javax.persistence.*;
 public class ImageEntity extends IdentifiedObject {
     private Long fileSize;
     private String mediaType;
-    private byte[] data;
+    private String path;
 }
