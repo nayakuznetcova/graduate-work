@@ -10,6 +10,8 @@ import ru.skypro.homework.dto.NewPasswordDto;
 import ru.skypro.homework.dto.UserDto;
 import ru.skypro.homework.service.UserService;
 
+import java.security.Principal;
+
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
@@ -32,8 +34,9 @@ public class UsersController {
 
     @PatchMapping("/me")
     public ResponseEntity<UserDto> updateInfoUser(@RequestBody UserDto user,
-                                               Authentication authentication) {
-        return null;
+                                                  Principal principal) {
+        UserDto userDto = userService.updateInfoUser(user, principal);
+        return ResponseEntity.ok(userDto);
     }
 
     @PatchMapping("/me/image")

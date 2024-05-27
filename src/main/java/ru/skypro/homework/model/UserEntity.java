@@ -16,11 +16,12 @@ public class UserEntity extends IdentifiedObject {
     private String firstName;
     private String lastName;
     private String phone;
+    private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToOne
     @JoinColumn(name = "image_id", referencedColumnName = "id")
-    private ImageEntity image;
+    private ImageEntity imageEntity;
     @OneToMany(mappedBy = "user")
     private List<AdEntity> ads;
     @OneToMany(mappedBy = "user")
