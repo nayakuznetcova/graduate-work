@@ -10,6 +10,7 @@ import ru.skypro.homework.dto.NewPasswordDto;
 import ru.skypro.homework.dto.UserDto;
 import ru.skypro.homework.service.UserService;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @Slf4j
@@ -40,9 +41,14 @@ public class UsersController {
     }
 
     @PatchMapping("/me/image")
-    public ResponseEntity<String> updateAvatarUser(
+    public ResponseEntity<Void> updateAvatarUser(
             @RequestParam("image") MultipartFile avatarUser,
-            Authentication authentication) {
-        return null;
+            Principal principal) {
+        try {
+            userService.updateAvatarUser(avatarUser, principal);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
     }
 }
