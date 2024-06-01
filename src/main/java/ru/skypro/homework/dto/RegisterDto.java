@@ -1,11 +1,11 @@
 package ru.skypro.homework.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import ru.skypro.homework.model.special.Role;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-@NoArgsConstructor
+
 @Data
 public class RegisterDto {
 
