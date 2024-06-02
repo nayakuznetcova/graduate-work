@@ -87,4 +87,9 @@ public class UserServiceImpl implements UserService {
         user.setRole(Objects.requireNonNullElse(role, Role.USER));
         userRepository.save(user);
     }
+    @Override
+    public UserDto getInfoUser(Principal principal){
+        UserEntity user = getUserFromBd(principal);
+        return userMapper.toUserDto(user);
+    }
 }

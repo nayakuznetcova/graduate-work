@@ -22,4 +22,5 @@ public interface UserService {
 
     void createUser(RegisterDto register, Role role);
     void updateAvatarUser(MultipartFile avatarUser, Principal principal) throws IOException;
+    UserDto getInfoUser(Principal principal);
 }
