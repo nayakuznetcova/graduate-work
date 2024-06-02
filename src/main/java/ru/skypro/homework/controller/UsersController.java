@@ -2,12 +2,14 @@ package ru.skypro.homework.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.NewPasswordDto;
 import ru.skypro.homework.dto.UserDto;
+import ru.skypro.homework.model.UserEntity;
 import ru.skypro.homework.service.UserService;
 
 import java.io.IOException;
@@ -23,13 +25,19 @@ public class UsersController {
 
     @PostMapping("/set_password")
     public ResponseEntity<?> updateUserPassword(@RequestBody NewPasswordDto newPasswordDto,
-                                                Authentication authentication) {
-        return null;
+                                                Principal principal) {
+        UserEntity user = userService.getUser(principal.getName());
+
+        if (!userService.isPasswordCorrect(user, newPasswordDto.getCurrentPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        UserDto updateUserDto = userService.setUserPassword(user, newPasswordDto);
+        return ResponseEntity.ok((updateUserDto));
     }
 
     @GetMapping("/me")
     public ResponseEntity<UserDto> getInfoUser(@RequestBody UserDto user,
-                                               Authentication authentication) {
+                                               Principal principal) {
         return null;
     }
 

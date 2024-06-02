@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class NewPasswordDto {
-    private String currentPassword;
-    private String newPassword;
+    public String currentPassword;
+    public String newPassword;
 }
