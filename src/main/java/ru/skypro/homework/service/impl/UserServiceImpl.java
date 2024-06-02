@@ -28,8 +28,9 @@ public class UserServiceImpl implements UserService {
         userFromBd.setFirstName(user.getFirstName());
         userFromBd.setLastName(user.getLastName());
         userFromBd.setPhone(user.getPhone());
-        userRepository.save(userFromBd);
-        return userMapper.toUserDto(userFromBd);
+
+        UserEntity userEntity = userRepository.save(userFromBd);
+        return userMapper.toUserDto(userEntity);
     }
 
     @Override
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userFromBd = userRepository.findByUsername(username);
         if (userFromBd == null) {
             userFromBd = new UserEntity();
+            userFromBd.setUsername(username);
         }
         return userFromBd;
     }
