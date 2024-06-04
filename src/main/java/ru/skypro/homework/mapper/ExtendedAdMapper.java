@@ -11,21 +11,21 @@ import java.util.List;
 @Mapper
 public interface ExtendedAdMapper {
 
-    @Mapping(target = "image", source = "imageEntity.path")
-    @Mapping(target = "pk", source = "adId")
-    @Mapping(target = "authorFirstName", source ="firstName.userEntity" )
-    @Mapping(target = "authorLastName", source ="lastName.userEntity" )
-    ExtendedAdDto toExtendedAdDto(AdEntity adEntity, int adId, UserEntity userEntity);
+    @Mapping(target = "image", source = "adEntity.image.path")
+    @Mapping(target = "pk", source = "pk")
+    @Mapping(target = "authorFirstName", source ="userEntity.firstName" )
+    @Mapping(target = "authorLastName", source ="userEntity.lastName" )
+    ExtendedAdDto toExtendedAdDto(AdEntity adEntity, Integer pk, UserEntity userEntity);
 
-
+//
     CreateOnUpdateAdDto toCreateOnUpdateAdDto(AdEntity adEntity);
 
     AdEntity toAdEntity(CreateOnUpdateAdDto toCreateOnUpdateAdDto);
 
-    @Mapping(target = "image", source = "imageEntity.path")
-    @Mapping(target = "pk", source = "id")
+    @Mapping(target = "image", source = "adEntity.image.path")
+    @Mapping(target = "pk", source = "adId")
     @Mapping(target = "author", source = "userId")
-    AdDto toAdDto(AdEntity adEntity, int userId);
+    AdDto toAdDto(AdEntity adEntity, Integer userId, Integer adId);
 
 
     AdsDto toAdsDto(List<AdEntity> allAd ,int count);

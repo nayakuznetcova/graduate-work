@@ -2,6 +2,8 @@ package ru.skypro.homework.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,7 +23,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @RequestMapping("/ads")
 public class AdsController {
-
+    Logger logger = LoggerFactory.getLogger(AdsController.class);
     private final AdService adService;
 
     @GetMapping
@@ -34,12 +36,13 @@ public class AdsController {
     public ResponseEntity<AdDto> createAd(@RequestPart("properties") CreateOnUpdateAdDto createOnUpdateAdDto,
                                           @RequestPart("image") MultipartFile imageFile,
                                           Authentication authentication) throws IOException {
+        logger.info("Создание объявления");
         return ResponseEntity.ok(adService.createAd(createOnUpdateAdDto,imageFile,authentication));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Integer id) {
-
+        logger.info("получение  объявления по id");
         return ResponseEntity.ok(adService.getAdById(id));
     }
 
