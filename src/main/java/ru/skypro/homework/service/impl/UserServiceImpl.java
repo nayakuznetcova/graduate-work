@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
         userFromBd.setImageEntity(newImageEntity);
         userRepository.save(userFromBd);
     }
-
-    private UserEntity getUserFromBd(Principal principal) {
+    @Override
+    public UserEntity getUserFromBd(Principal principal) {
         String username = principal.getName();
         UserEntity userFromBd = userRepository.findByUsername(username);
         if (userFromBd == null) {

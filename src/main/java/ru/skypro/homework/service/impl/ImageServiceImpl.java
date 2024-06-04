@@ -23,13 +23,17 @@ public class ImageServiceImpl implements ImageService {
     private String pathImage;
 
     @Override
-    public ImageEntity saveImage(MultipartFile avatarUser, ImageEntity imageEntity) throws IOException {
-        if (imageEntity == null){
+    public ImageEntity saveImage(MultipartFile multipartFile, ImageEntity imageEntity) throws IOException {
+        if (imageEntity == null) {
             imageEntity = new ImageEntity();
-            return saveImageInFile(avatarUser, imageEntity);
-        }else{
-            return saveImageInFile(avatarUser, imageEntity);
+            return saveImageInFile(multipartFile, imageEntity);
+        } else {
+            return saveImageInFile(multipartFile, imageEntity);
         }
+    }
+    @Override
+    public ImageEntity saveImage(MultipartFile multipartFile) throws IOException {
+        return saveImage(multipartFile, null);
     }
     private ImageEntity saveImageInFile(MultipartFile avatarUser, ImageEntity imageEntity) throws IOException {
         String originalFilename = avatarUser.getOriginalFilename();
@@ -60,5 +64,9 @@ public class ImageServiceImpl implements ImageService {
 
     private String getExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
+    @Override
+    public byte[] getByteFromFile(String path) throws IOException {
+        return Files.readAllBytes(Path.of(pathImage, path));
     }
 }
