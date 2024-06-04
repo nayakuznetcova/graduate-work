@@ -7,4 +7,7 @@ import java.io.IOException;
 
 public interface ImageService {
     ImageEntity saveImage(MultipartFile avatarUser, ImageEntity imageEntity) throws IOException;
+    ImageEntity saveImage(MultipartFile avatarUser) throws IOException;
+    byte[] getByteFromFile(String path) throws IOException;
+
 }
