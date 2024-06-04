@@ -7,24 +7,17 @@ import org.springframework.stereotype.Service;
 import ru.skypro.homework.dto.NewPasswordDto;
 import ru.skypro.homework.dto.RegisterDto;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartFile;
-import ru.skypro.homework.dto.NewPasswordDto;
-import ru.skypro.homework.dto.RegisterDto;
 import ru.skypro.homework.dto.UserDto;
 import ru.skypro.homework.mapper.UserMapper;
 import ru.skypro.homework.model.ImageEntity;
-import ru.skypro.homework.model.ImageEntity;
 import ru.skypro.homework.model.UserEntity;
-import ru.skypro.homework.model.special.Role;
 import ru.skypro.homework.model.special.Role;
 import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.ImageService;
 import ru.skypro.homework.service.UserService;
 
 import java.io.IOException;
-import java.io.IOException;
 import java.security.Principal;
-import java.util.Objects;
 import java.util.Objects;
 
 @Service
@@ -92,4 +85,10 @@ public class UserServiceImpl implements UserService {
         UserEntity user = getUserFromBd(principal);
         return userMapper.toUserDto(user);
     }
+    @Override
+    public Integer findIdByUserName(String username) {
+       return userRepository.findIdByUsername(username);
+    }
+
+
 }

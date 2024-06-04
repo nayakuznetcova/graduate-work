@@ -2,6 +2,8 @@ package ru.skypro.homework.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,9 +25,10 @@ import java.security.Principal;
 @RequestMapping("/ads")
 public class AdsController {
     private final AdsService adsService;
-
+    Logger logger = LoggerFactory.getLogger(AdsController.class);
     @GetMapping
     public ResponseEntity<AdsDto> getAllAds() {
+        logger.info("Метод getAllAds в контроллере");
         AdsDto allAds = adsService.getAllAds();
         return ResponseEntity.ok(allAds);
     }
@@ -42,28 +45,35 @@ public class AdsController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Long id) {
-        return null;
+    @GetMapping("{id}")
+    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Integer id) {
+        logger.info("Метод getAdById в контроллере");
+        return ResponseEntity.ok(adsService.getAdById(id));
     }
 
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAd(@PathVariable Long id,
-                                      Authentication authentication) {
-        return null;
+
+    public ResponseEntity<?> deleteAd(@PathVariable Integer id,
+                                      Principal principal) {
+        logger.info("Метод deleteAd в контроллере");
+        adsService.deleteAd(id);
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<AdDto> updateAd(
             @PathVariable Long id,
             @RequestBody CreateOnUpdateAdDto createOnUpdateAdDto) {
+        logger.info("Метод  updateAd в контроллере");
         return null;
     }
 
     @GetMapping("/me")
     public ResponseEntity<AdsDto> getAdsByAuthUser(
-            Authentication authentication) {
-        return null;
+            Principal principal) {
+        logger.info("Метод  getAdsByAuthUser в контроллере");
+        return ResponseEntity.ok(adsService.getAdsByAuthUser(principal));
     }
 
     @PatchMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
