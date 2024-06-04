@@ -6,4 +6,6 @@ import ru.skypro.homework.model.AdEntity;
 
 @Repository
 public interface AdRepository extends JpaRepository<AdEntity, Integer> {
+
+    int findIdByTitle (String title);
 }

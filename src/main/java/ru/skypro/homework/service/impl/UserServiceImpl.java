@@ -87,4 +87,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(Objects.requireNonNullElse(role, Role.USER));
         userRepository.save(user);
     }
+
+
+
 }

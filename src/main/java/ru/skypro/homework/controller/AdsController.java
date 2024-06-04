@@ -11,6 +11,9 @@ import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOnUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
+import ru.skypro.homework.service.AdService;
+
+import java.io.IOException;
 
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
@@ -19,28 +22,35 @@ import ru.skypro.homework.dto.ExtendedAdDto;
 @RequestMapping("/ads")
 public class AdsController {
 
+    private final AdService adService;
+
     @GetMapping
     public ResponseEntity<AdsDto> getAllAds() {
+
         return null;
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AdDto> createAd(@RequestPart("properties") CreateOnUpdateAdDto createOnUpdateAdDto,
                                           @RequestPart("image") MultipartFile imageFile,
-                                          Authentication authentication) {
-        return null;
+                                          Authentication authentication) throws IOException {
+        return ResponseEntity.ok(adService.createAd(createOnUpdateAdDto,imageFile,authentication));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Integer id) {
+
+        return ResponseEntity.ok(adService.getAdById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAd(@PathVariable Long id,
+    public ResponseEntity<?> deleteAd(@PathVariable Integer id,
                                       Authentication authentication) {
-        return null;
+        adService.deleteAd(id);
+        return ResponseEntity.ok().build();
     }
+
+
 
     @PatchMapping("/{id}")
     public ResponseEntity<AdDto> updateAd(
