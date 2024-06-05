@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.skypro.homework.controller.swagger.UsersControllerSwagger;
 import ru.skypro.homework.dto.NewPasswordDto;
 import ru.skypro.homework.dto.UserDto;
 import ru.skypro.homework.model.UserEntity;
@@ -24,30 +25,9 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class UsersController {
+public class UsersController implements UsersControllerSwagger {
     private final UserService userService;
 
-    @Operation(
-            tags = "Пользователи",
-            summary = "Обновление пароля",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "OK",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "401",
-                            description = "Unauthorized",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "403",
-                            description = "Forbidden",
-                            content = @Content()
-                    )
-            }
-    )
     @PostMapping("/set_password")
     public ResponseEntity<?> updateUserPassword(@RequestBody NewPasswordDto newPasswordDto,
                                                 Principal principal) {
