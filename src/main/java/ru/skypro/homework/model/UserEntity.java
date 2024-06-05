@@ -1,5 +1,6 @@
 package ru.skypro.homework.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.skypro.homework.model.special.IdentifiedObject;
@@ -26,9 +27,11 @@ public class UserEntity extends IdentifiedObject {
     private Role role;         // Роль
     @OneToOne
     @JoinColumn(name = "image_id", referencedColumnName = "id")
-    private ImageEntity imageEntity;       // Аватарка
+    private ImageEntity imageEntity;// Аватарка
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<AdEntity> ads;            // Объявления пользователя
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<CommentEntity> comments;  // Комментарии пользователя
 

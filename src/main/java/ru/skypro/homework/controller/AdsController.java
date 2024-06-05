@@ -16,6 +16,10 @@ import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOnUpdateAdDto;
 import ru.skypro.homework.dto.ExtendedAdDto;
+import ru.skypro.homework.service.AdsService;
+
+import java.io.IOException;
+import java.security.Principal;
 
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
@@ -23,6 +27,7 @@ import ru.skypro.homework.dto.ExtendedAdDto;
 @RequiredArgsConstructor
 @RequestMapping("/ads")
 public class AdsController {
+    private final AdsService adsService;
 
     @Operation(
             tags = "Объявления",
@@ -40,7 +45,8 @@ public class AdsController {
     )
     @GetMapping
     public ResponseEntity<AdsDto> getAllAds() {
-        return null;
+        AdsDto allAds = adsService.getAllAds();
+        return ResponseEntity.ok(allAds);
     }
 
     //-------------------------------
@@ -77,8 +83,13 @@ public class AdsController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AdDto> createAd(@RequestPart("properties") CreateOnUpdateAdDto createOnUpdateAdDto,
                                           @RequestPart("image") MultipartFile imageFile,
-                                          Authentication authentication) {
-        return null;
+                                          Principal principal) {
+        try {
+            AdDto ad = adsService.createAd(createOnUpdateAdDto, imageFile, principal);
+            return ResponseEntity.ok(ad);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     //-------------------------------
@@ -187,9 +198,9 @@ public class AdsController {
             }
     )
     @GetMapping("/me")
-    public ResponseEntity<AdsDto> getAdsByAuthUser(
-            Authentication authentication) {
-        return null;
+    public ResponseEntity<AdsDto> getAdsByAuthUser(Principal principal) {
+        AdsDto allAdAuthUser = adsService.getAdsByAuthUser(principal);
+        return ResponseEntity.ok(allAdAuthUser);
     }
 
     //-------------------------------

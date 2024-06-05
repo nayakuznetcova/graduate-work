@@ -81,9 +81,9 @@ public class UsersController {
             }
     )
     @GetMapping("/me")
-    public ResponseEntity<UserDto> getInfoUser(@RequestBody UserDto user,
-                                               Principal principal) {
-        return null;
+    public ResponseEntity<UserDto> getInfoUser(Principal principal) {
+        UserDto userDto = userService.getInfoUser(principal);
+        return ResponseEntity.ok(userDto);
     }
 
     //---------------------------

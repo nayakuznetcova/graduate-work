@@ -63,8 +63,8 @@ public class UserServiceImpl implements UserService {
         userFromBd.setImageEntity(newImageEntity);
         userRepository.save(userFromBd);
     }
-
-    private UserEntity getUserFromBd(Principal principal) {
+    @Override
+    public UserEntity getUserFromBd(Principal principal) {
         String username = principal.getName();
         UserEntity userFromBd = userRepository.findByUsername(username);
         if (userFromBd == null) {
@@ -123,5 +123,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(register.getPassword()));
         user.setRole(Objects.requireNonNullElse(role, Role.USER));
         userRepository.save(user);
+    }
+    @Override
+    public UserDto getInfoUser(Principal principal){
+        UserEntity user = getUserFromBd(principal);
+        return userMapper.toUserDto(user);
     }
 }
