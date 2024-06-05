@@ -12,4 +12,5 @@ import java.security.Principal;
 public interface AdsService {
     AdDto createAd(CreateOnUpdateAdDto createOnUpdateAdDto, MultipartFile imageFile, Principal principal) throws IOException;
     AdsDto getAllAds();
+    AdsDto getAdsByAuthUser(Principal principal);
 }

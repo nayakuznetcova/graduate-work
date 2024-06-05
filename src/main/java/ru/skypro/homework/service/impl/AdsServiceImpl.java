@@ -1,6 +1,7 @@
 package ru.skypro.homework.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.control.MappingControl;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,8 +41,23 @@ public class AdsServiceImpl implements AdsService {
     @Override
     public AdsDto getAllAds() {
         List<AdEntity> adEntities = adRepository.findAll();
+        return getAdsDto(adEntities);
+    }
+
+    @Override
+    public AdsDto getAdsByAuthUser(Principal principal){
+        UserEntity userFromBd = userService.getUserFromBd(principal);
+        List<AdEntity> allAdsByAuthUser = adRepository.findAllByUser(userFromBd);
+        return getAdsDto(allAdsByAuthUser);
+    }
+
+    private AdsDto getAdsDto(List<AdEntity> adEntities) {
         List<AdDto> adDtoList = adEntities.stream()
-                .map(adEntity -> adMapper.toAdDto(adEntity))
+                .map(adEntity -> {
+                    AdDto adDto = adMapper.toAdDto(adEntity);
+                    adDto.setImage("/" + adEntity.getImage().getPath());
+                    return adDto;
+                })
                 .collect(Collectors.toList());
         AdsDto adsDto = new AdsDto();
         adsDto.setResult(adDtoList);

@@ -61,9 +61,9 @@ public class AdsController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<AdsDto> getAdsByAuthUser(
-            Authentication authentication) {
-        return null;
+    public ResponseEntity<AdsDto> getAdsByAuthUser(Principal principal) {
+        AdsDto allAdAuthUser = adsService.getAdsByAuthUser(principal);
+        return ResponseEntity.ok(allAdAuthUser);
     }
 
     @PatchMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
