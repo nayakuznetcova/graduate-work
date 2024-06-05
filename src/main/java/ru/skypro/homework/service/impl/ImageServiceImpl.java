@@ -26,10 +26,8 @@ public class ImageServiceImpl implements ImageService {
     public ImageEntity saveImage(MultipartFile avatarUser, ImageEntity imageEntity) throws IOException {
         if (imageEntity == null){
             imageEntity = new ImageEntity();
-            return saveImageInFile(avatarUser, imageEntity);
-        }else{
-            return saveImageInFile(avatarUser, imageEntity);
         }
+        return saveImageInFile(avatarUser, imageEntity);
     }
     private ImageEntity saveImageInFile(MultipartFile avatarUser, ImageEntity imageEntity) throws IOException {
         String originalFilename = avatarUser.getOriginalFilename();

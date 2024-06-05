@@ -5,14 +5,18 @@ import ru.skypro.homework.model.special.Role;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+
+/**
+ * Пользователь
+ */
 @Data
 public class UserDto {
-    private int id;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String phone;
+    private int id;               // Идентификатор
+    private String email;         // Емайл
+    private String firstName;     // Имя
+    private String lastName;      // Фамилия
+    private String phone;         // Номер телефона
     @Enumerated(EnumType.STRING)
-    private Role role;
-    private String image;
+    private Role role;            // Роль
+    private String image;         // Аватар
 }

@@ -6,9 +6,22 @@ import ru.skypro.homework.model.UserEntity;
 
 import java.util.Optional;
 
+/**
+ * Репозиторий пользователей
+ */
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+    /**
+     * Найти пользователя по логину
+     * @param username логин
+     * @return результат поиска
+     */
     UserEntity findByUsername (String username);
 
+    /**
+     * Найти пользователя по логину
+     * @param username логин
+     * @return результат поиска в обертке
+     */
     Optional<UserEntity> findUserEntityByUsername(String username);
 }
