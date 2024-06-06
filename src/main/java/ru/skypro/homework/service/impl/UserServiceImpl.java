@@ -27,6 +27,15 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final ImageService imageService;
     UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+
+    /**
+     * Обновляем информацию о пользователе и
+     * сохраняем изменения в базу данных
+     *
+     * @param user dto пользователя
+     * @param principal Представление авторизованного пользователя
+     * @return результат
+     */
     @Override
     public UserDto updateInfoUser(UserDto user, Principal principal) {
         UserEntity userFromBd = getUserFromBd(principal);
@@ -38,6 +47,14 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserDto(userEntity);
     }
 
+    /**
+     * Обновление аватара пользователя и
+     * сохранение изменения в базу данных
+     *
+     * @param avatarUser новая аватарка
+     * @param principal  Представление авторизованного пользователя
+     * @throws IOException исключение связанное с потоком файла
+     */
     @Override
     public void updateAvatarUser(MultipartFile avatarUser, Principal principal) throws IOException {
         UserEntity userFromBd = getUserFromBd(principal);
@@ -56,16 +73,37 @@ public class UserServiceImpl implements UserService {
         }
         return userFromBd;
     }
+
+    /**
+     * Найти пользователя по логину
+     *
+     * @param username логин
+     * @return результат поиска
+     */
     @Override
     public UserEntity getUser(String username) {
         return userRepository.findUserEntityByUsername(username).orElseThrow();
     }
 
+    /**
+     * Проверка корректности старого пароля
+     *
+     * @param user модель пользователя
+     * @param currentPassword старый пароль
+     * @return результат корректности
+     */
     @Override
     public boolean isPasswordCorrect(UserEntity user, String currentPassword) {
         return passwordEncoder.matches(currentPassword, user.getPassword());
     }
 
+    /**
+     * Изменение пароля пользователя
+     *
+     * @param user модель пользователя
+     * @param newPasswordDto новый пароль
+     * @return результат
+     */
     @Override
     public UserDto setUserPassword(UserEntity user, NewPasswordDto newPasswordDto) {
         user.setPassword(passwordEncoder.encode(newPasswordDto.newPassword));
@@ -73,6 +111,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserDto(user);
     }
 
+    /**
+     * Сохранение нового пользователя
+     *
+     * @param register dto регистрации
+     * @param role Роль
+     */
     @Override
     public void createUser(RegisterDto register, Role role) {
         UserEntity user = userMapper.toUserEntity(register);

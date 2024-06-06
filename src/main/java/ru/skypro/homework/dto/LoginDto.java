@@ -1,12 +1,13 @@
 package ru.skypro.homework.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+/**
+ * Логин - пароль
+ */
 @Data
 public class LoginDto {
 
-    private String username;
-    private String password;
+    private String username;  // Логин пользователя
+    private String password;  // Пароль пользователя
 }

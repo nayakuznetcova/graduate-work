@@ -6,14 +6,17 @@ import ru.skypro.homework.model.special.Role;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+/**
+ * Регистрация
+ */
 @Data
 public class RegisterDto {
 
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String phone;
+    private String username;      // Логин(емайл)
+    private String password;      // Пароль
+    private String firstName;     // Имя
+    private String lastName;      // Фамилия
+    private String phone;         // Номер телефона
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role;            // Роль
 }

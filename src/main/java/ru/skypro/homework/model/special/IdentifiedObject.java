@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+/**
+ * Идентификатор для моделей
+ */
 @Data
 @MappedSuperclass
 public class IdentifiedObject {

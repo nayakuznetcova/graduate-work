@@ -1,12 +1,13 @@
 package ru.skypro.homework.dto;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+/**
+ * Обновление информации о пользователе
+ */
 @Data
 public class UpdateUser {
-    private String firstName;
-    private String lastName;
-    private String phone;
+    private String firstName;  // Имя
+    private String lastName;   // Фамилия
+    private String phone;      // Номер телефона
 }
