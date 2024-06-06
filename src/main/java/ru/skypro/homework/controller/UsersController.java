@@ -40,52 +40,12 @@ public class UsersController implements UsersControllerSwagger {
         return ResponseEntity.ok((updateUserDto));
     }
 
-    //---------------------------
-    @Operation(
-            tags = "Пользователи",
-            summary = "Получить информацию об авторизованном пользователе",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "OK",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(implementation = UserDto.class)
-                            )
-                    ),
-                    @ApiResponse(
-                            responseCode = "401",
-                            description = "Unauthorized",
-                            content = @Content()
-                    )
-            }
-    )
     @GetMapping("/me")
     public ResponseEntity<UserDto> getInfoUser(Principal principal) {
         UserDto userDto = userService.getInfoUser(principal);
         return ResponseEntity.ok(userDto);
     }
 
-    //---------------------------
-    @Operation(
-            tags = "Пользователи",
-            summary = "Обновить информацию об авторизованном пользователе",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "OK",
-                            content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(implementation = UserDto.class)
-                            )
-                    ),
-                    @ApiResponse(
-                            responseCode = "401",
-                            description = "Unauthorized",
-                            content = @Content()
-                    )
-            }
-    )
     @PatchMapping("/me")
     public ResponseEntity<UserDto> updateInfoUser(@RequestBody UserDto user,
                                                   Principal principal) {
@@ -93,23 +53,6 @@ public class UsersController implements UsersControllerSwagger {
         return ResponseEntity.ok(userDto);
     }
 
-    //---------------------------
-    @Operation(
-            tags = "Пользователи",
-            summary = "Обновить аватар авторизованного пользователя",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "OK",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "401",
-                            description = "Unauthorized",
-                            content = @Content()
-                    )
-            }
-    )
     @PatchMapping("/me/image")
     public ResponseEntity<Void> updateAvatarUser(
             @RequestParam("image") MultipartFile avatarUser,

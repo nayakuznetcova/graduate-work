@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.skypro.homework.controller.swagger.AuthControllerSwagger;
 import ru.skypro.homework.dto.LoginDto;
 import ru.skypro.homework.dto.RegisterDto;
 import ru.skypro.homework.model.special.Role;
@@ -20,36 +21,10 @@ import ru.skypro.homework.service.AuthService;
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController implements AuthControllerSwagger {
 
     private final AuthService authService;
 
-    @Operation(
-            tags = "Авторизация",
-            summary = "Авторизация пользователя",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "200",
-                            description = "OK",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "401",
-                            description = "Unauthorized",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "403",
-                            description = "Forbidden",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "Not Found",
-                            content = @Content()
-                    )
-            }
-    )
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto login) {
         if (authService.login(login.getUsername(), login.getPassword())) {
@@ -59,33 +34,6 @@ public class AuthController {
         }
     }
 
-    //----------------------
-    @Operation(
-            tags = "Регистрация",
-            summary = "Регистрация пользователя",
-            responses = {
-                    @ApiResponse(
-                            responseCode = "201",
-                            description = "Created",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "401",
-                            description = "Unauthorized",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "403",
-                            description = "Forbidden",
-                            content = @Content()
-                    ),
-                    @ApiResponse(
-                            responseCode = "404",
-                            description = "Not Found",
-                            content = @Content()
-                    )
-            }
-    )
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto reg) {
         Role role = reg.getRole() == null ? Role.USER : reg.getRole();
