@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOnUpdateAdDto;
+import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.mapper.AdMapper;
 import ru.skypro.homework.model.AdEntity;
 import ru.skypro.homework.model.ImageEntity;
@@ -20,6 +21,7 @@ import ru.skypro.homework.service.UserService;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,6 +44,20 @@ public class AdsServiceImpl implements AdsService {
     public AdsDto getAllAds() {
         List<AdEntity> adEntities = adRepository.findAll();
         return getAdsDto(adEntities);
+    }
+
+    @Override
+    public ExtendedAdDto getAdById(int id) {
+        AdEntity adEntityFromBd = adRepository.findById(id);
+        ExtendedAdDto extendedAdDto = adMapper.toExtendedAdDto(adEntityFromBd);
+        extendedAdDto.setImage("/" + adEntityFromBd.getImage().getPath());
+        return extendedAdDto;
+    }
+
+    @Override
+    public void deleteAd(Integer id, Principal principal) {
+        adRepository.findById(id).orElseThrow(()->new NoSuchElementException());
+        adRepository.deleteById(id);
     }
 
     @Override

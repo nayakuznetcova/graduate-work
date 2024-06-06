@@ -7,6 +7,7 @@ import ru.skypro.homework.model.UserEntity;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Репозиторий объявлений
@@ -14,4 +15,5 @@ import java.util.List;
 @Repository
 public interface AdRepository extends JpaRepository<AdEntity, Integer> {
     List<AdEntity> findAllByUser(UserEntity userEntity);
+    AdEntity findById (int id);
 }

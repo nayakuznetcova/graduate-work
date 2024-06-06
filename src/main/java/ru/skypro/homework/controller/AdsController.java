@@ -2,6 +2,7 @@ package ru.skypro.homework.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import ru.skypro.homework.service.AdsService;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
@@ -46,20 +48,23 @@ public class AdsController implements AdsControllerSwagger {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Integer id) {
+        ExtendedAdDto extendedAdDto = adsService.getAdById(id);
+        return ResponseEntity.ok(extendedAdDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAd(@PathVariable Long id,
-                                      Authentication authentication) {
-        return null;
+    public ResponseEntity<?> deleteAd(@PathVariable Integer id, Principal principal) {
+        try {
+            adsService.deleteAd(id, principal);
+        }catch (NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<AdDto> updateAd(
-            @PathVariable Long id,
-            @RequestBody CreateOnUpdateAdDto createOnUpdateAdDto) {
+    public ResponseEntity<AdDto> updateAd(@PathVariable Integer id, @RequestBody CreateOnUpdateAdDto createOnUpdateAdDto) {
         return null;
     }
 
@@ -71,8 +76,7 @@ public class AdsController implements AdsControllerSwagger {
 
     @Transactional
     @PatchMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<byte[]> updateAdImage(@PathVariable("id") Long adId,
-                                                @RequestParam("image") MultipartFile imageFile) {
+    public ResponseEntity<byte[]> updateAdImage(@PathVariable("id") Integer adId, @RequestParam("image") MultipartFile imageFile) {
         return null;
     }
 }

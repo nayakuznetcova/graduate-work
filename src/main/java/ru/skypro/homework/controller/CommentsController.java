@@ -14,6 +14,9 @@ import ru.skypro.homework.controller.swagger.CommentsControllerSwagger;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.security.Principal;
+
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
@@ -21,26 +24,26 @@ import ru.skypro.homework.dto.CommentsDto;
 @RequestMapping("/ads")
 public class CommentsController implements CommentsControllerSwagger {
     @GetMapping("/{id}/comments")
-    public ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Long id) {
+    public ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Integer id) {
         return null;
     }
 
     @PostMapping("/{id}/comments")
-    public ResponseEntity<CommentDto> addComment(@PathVariable Long id,
+    public ResponseEntity<CommentDto> addComment(@PathVariable Integer id,
                                                  @RequestBody CommentDto commentDTO,
-                                                 Authentication authentication) {
+                                                 Principal principal) {
         return null;
     }
 
     @DeleteMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<?> deleteComment(@PathVariable Long adId,
-                                           @PathVariable Long commentId) {
+    public ResponseEntity<?> deleteComment(@PathVariable Integer adId,
+                                           @PathVariable Integer commentId) {
         return null;
     }
 
     @PatchMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long adId,
-                                                    @PathVariable Long commentId,
+    public ResponseEntity<CommentDto> updateComment(@PathVariable Integer adId,
+                                                    @PathVariable Integer commentId,
                                                     @RequestBody CommentDto commentDTO) {
         return null;
     }

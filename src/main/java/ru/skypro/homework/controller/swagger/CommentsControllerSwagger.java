@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
 
+import java.security.Principal;
+
 public interface CommentsControllerSwagger {
     @Operation(
             tags = "Комментарии",
@@ -31,7 +33,7 @@ public interface CommentsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Long id);
+    ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Integer id);
 
     @Operation(
             tags = "Комментарии",
@@ -52,9 +54,9 @@ public interface CommentsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<CommentDto> addComment(@PathVariable Long id,
+    ResponseEntity<CommentDto> addComment(@PathVariable Integer id,
                                           @RequestBody CommentDto commentDTO,
-                                          Authentication authentication);
+                                          Principal principal);
 
     @Operation(
             tags = "Комментарии",
@@ -77,8 +79,8 @@ public interface CommentsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<?> deleteComment(@PathVariable Long adId,
-                                    @PathVariable Long commentId);
+    ResponseEntity<?> deleteComment(@PathVariable Integer adId,
+                                    @PathVariable Integer commentId);
 
     @Operation(
             tags = "Комментарии",
@@ -104,7 +106,7 @@ public interface CommentsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<CommentDto> updateComment(@PathVariable Long adId,
-                                             @PathVariable Long commentId,
+    ResponseEntity<CommentDto> updateComment(@PathVariable Integer adId,
+                                             @PathVariable Integer commentId,
                                              @RequestBody CommentDto commentDTO);
 }

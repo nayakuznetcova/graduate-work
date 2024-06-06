@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.AdsDto;
 import ru.skypro.homework.dto.CreateOnUpdateAdDto;
+import ru.skypro.homework.dto.ExtendedAdDto;
 import ru.skypro.homework.model.AdEntity;
 import ru.skypro.homework.model.ImageEntity;
 import ru.skypro.homework.model.UserEntity;
@@ -22,4 +23,12 @@ public interface AdMapper {
     @Mapping(target = "image", source = "image.path")
     @Mapping(target = "pk", source = "id")
     AdDto toAdDto(AdEntity adEntity);
+
+    @Mapping(target = "pk", source = "id")
+    @Mapping(target = "authorFirstName", source = "user.firstName")
+    @Mapping(target = "authorLastName", source = "user.lastName")
+    @Mapping(target = "email", source = "user.email")
+    @Mapping(target = "phone", source = "user.phone")
+    @Mapping(target = "image", source = "image.path")
+    ExtendedAdDto toExtendedAdDto(AdEntity adEntity);
 }

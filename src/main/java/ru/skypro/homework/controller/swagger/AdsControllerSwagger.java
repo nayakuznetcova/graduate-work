@@ -85,7 +85,7 @@ public interface AdsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Long id);
+    ResponseEntity<ExtendedAdDto> getAdById(@PathVariable Integer id);
 
     @Operation(
             tags = "Объявления",
@@ -108,8 +108,8 @@ public interface AdsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<?> deleteAd(@PathVariable Long id,
-                               Authentication authentication);
+    ResponseEntity<?> deleteAd(@PathVariable Integer id,
+                               Principal principal);
 
     @Operation(
             tags = "Объявления",
@@ -136,7 +136,7 @@ public interface AdsControllerSwagger {
             }
     )
     ResponseEntity<AdDto> updateAd(
-            @PathVariable Long id,
+            @PathVariable Integer id,
             @RequestBody CreateOnUpdateAdDto createOnUpdateAdDto);
 
     @Operation(
@@ -184,6 +184,6 @@ public interface AdsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<byte[]> updateAdImage(@PathVariable("id") Long adId,
+    ResponseEntity<byte[]> updateAdImage(@PathVariable("id") Integer adId,
                                          @RequestParam("image") MultipartFile imageFile);
 }
