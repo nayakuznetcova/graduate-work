@@ -12,6 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
+import ru.skypro.homework.service.CommentServise;
+
+import java.security.Principal;
 
 @Slf4j
 @CrossOrigin(value = "http://localhost:3000")
@@ -19,6 +22,7 @@ import ru.skypro.homework.dto.CommentsDto;
 @RequiredArgsConstructor
 @RequestMapping("/ads")
 public class CommentsController {
+    private final CommentServise commentServise;
 
     @Operation(
             tags = "Комментарии",
@@ -65,13 +69,16 @@ public class CommentsController {
             }
     )
     @PostMapping("/{id}/comments")
-    public ResponseEntity<CommentDto> addComment(@PathVariable Long id,
+    public ResponseEntity<CommentDto> addComment(@PathVariable Integer id,
                                                  @RequestBody CommentDto commentDTO,
-                                                 Authentication authentication) {
-        return null;
+                                                 Principal principal) {
+        CommentDto commentDto = commentServise.addComment(id, commentDTO, principal);
+
+
+        return ResponseEntity.ok(commentDto);
     }
 
-    //---------------------------
+
     @Operation(
             tags = "Комментарии",
             summary = "Удалить комментарий",

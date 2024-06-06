@@ -26,5 +26,5 @@ public interface UserService {
     UserDto getInfoUser(Principal principal);
     UserEntity getUserFromBd(Principal principal);
 
-     Integer findIdByUserName(String userName);
+//     Integer findIdByUserName(String userName);
 }

@@ -74,43 +74,43 @@ public class AdsServiceImpl implements AdsService {
     }
 
     //     получить по id не работает
-    @Override
-    public ExtendedAdDto getAdById(Integer id) {
-        logger.info("Метод getAdById");
-        AdEntity adEntity = adRepository.findAdEntityById(id).orElseThrow();
-        logger.info("получение объявления из базы " + adEntity.toString());
-        Integer adId = adRepository.findIdByTitle(adEntity.getTitle());
+//    @Override
+//    public ExtendedAdDto getAdById(Integer id) {
+//        logger.info("Метод getAdById");
+//        AdEntity adEntity = adRepository.findAdEntityById(id).orElseThrow();
+//        logger.info("получение объявления из базы " + adEntity.toString());
+//        Integer adId = adRepository.findIdByTitle(adEntity.getTitle());
+//
+//        UserEntity userEntity = adEntity.getUser();
+//
+//
+//        return adMapper.toExtendedAdDto(adEntity, userEntity);
+//    }
 
-        UserEntity userEntity = adEntity.getUser();
+//    @Override
+//    public void deleteAd(Integer id) {
+//        adRepository.deleteById(id);
+//
+//    }
 
-
-        return adMapper.toExtendedAdDto(adEntity, userEntity);
-    }
-
-    @Override
-    public void deleteAd(Integer id) {
-        adRepository.deleteById(id);
-
-    }
-
-    @Override
-    public AdsDto getAdsByAuthUser(Principal principal) {
-        logger.info("метод getAdsByAuthUser" );
-        String userName = principal.getName();
-        logger.info("пользователь " + userName);
-        Integer userId = userService.findIdByUserName(userName);// получаем id юзера из базы
-
-
-        List<AdEntity> adEntities =  adRepository.findAdEntityByUser_id(userId);
-
-        List<AdDto> adDtoList = adEntities.stream()
-                .map(adEntity -> adMapper.toAdDto(adEntity))
-                .collect(Collectors.toList());
-        AdsDto adsDto = new AdsDto();
-        adsDto.setResult(adDtoList);
-        adsDto.setCount(adDtoList.size());
-        return adsDto;
-    }
+//    @Override
+//    public AdsDto getAdsByAuthUser(Principal principal) {
+//        logger.info("метод getAdsByAuthUser" );
+//        String userName = principal.getName();
+//        logger.info("пользователь " + userName);
+//        Integer userId = userService.findIdByUserName(userName);// получаем id юзера из базы
+//
+//
+//        List<AdEntity> adEntities =  adRepository.findAdEntityByUser_id(userId);
+//
+//        List<AdDto> adDtoList = adEntities.stream()
+//                .map(adEntity -> adMapper.toAdDto(adEntity))
+//                .collect(Collectors.toList());
+//        AdsDto adsDto = new AdsDto();
+//        adsDto.setResult(adDtoList);
+//        adsDto.setCount(adDtoList.size());
+//        return adsDto;
+//    }
 
 
 }

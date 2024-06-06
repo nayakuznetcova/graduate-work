@@ -9,4 +9,6 @@ import ru.skypro.homework.model.CommentEntity;
  */
 @Repository
 public interface CommentRepository extends JpaRepository<CommentEntity, Integer> {
+
+
 }

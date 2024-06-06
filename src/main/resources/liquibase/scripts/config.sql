@@ -47,4 +47,15 @@ create table comments
     foreign key (user_id) references users (id)
 );
 
+--changeset smakrushin:alter_table_comments
+ALTER TABLE comments ADD COLUMN ad_id int
+
+--changeset smakrushin:alter_table_comments2
+ALTER TABLE comments ADD CONSTRAINT fk_comments_ads
+                  FOREIGN KEY (ad_id)
+                  REFERENCES ads(id);
+
+
+
+
 

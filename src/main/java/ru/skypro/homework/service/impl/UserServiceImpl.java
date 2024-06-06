@@ -129,10 +129,10 @@ public class UserServiceImpl implements UserService {
         UserEntity user = getUserFromBd(principal);
         return userMapper.toUserDto(user);
     }
-    @Override
-    public Integer findIdByUserName(String username) {
-       return userRepository.findIdByUsername(username);
-    }
+//    @Override
+//    public Integer findIdByUserName(String username) {
+//       return userRepository.findIdByUsername(username);
+//    }
 
 
 }

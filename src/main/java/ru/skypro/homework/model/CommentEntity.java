@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.skypro.homework.model.special.IdentifiedObject;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -23,4 +20,7 @@ public class CommentEntity extends IdentifiedObject {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;      // Автор комментария
+    @OneToOne
+    @JoinColumn(name = "ad_id", referencedColumnName = "id")
+    private AdEntity ad;
 }
