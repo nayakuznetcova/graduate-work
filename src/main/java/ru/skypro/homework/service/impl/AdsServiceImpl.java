@@ -60,7 +60,7 @@ public class AdsServiceImpl implements AdsService {
                 })
                 .collect(Collectors.toList());
         AdsDto adsDto = new AdsDto();
-        adsDto.setResult(adDtoList);
+        adsDto.setResults(adDtoList);
         adsDto.setCount(adDtoList.size());
         return adsDto;
     }
