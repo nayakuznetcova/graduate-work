@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.skypro.homework.controller.swagger.ImageControllerSwagger;
 import ru.skypro.homework.service.ImageService;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/C:/avatar")
 @RequiredArgsConstructor
-public class ImageController {
+public class ImageController implements ImageControllerSwagger {
     @Value("${path.image}")
     private String avatarPath;
     private final ImageService imageService;
