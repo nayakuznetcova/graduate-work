@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.skypro.homework.dto.AdDto;
 import ru.skypro.homework.dto.CommentDto;
+import ru.skypro.homework.dto.CreateOrUpdateComment;
 import ru.skypro.homework.model.AdEntity;
 import ru.skypro.homework.model.CommentEntity;
 import ru.skypro.homework.model.UserEntity;
@@ -16,32 +17,26 @@ import java.time.LocalDateTime;
 
 @Mapper
 public interface CommentMapper {
-//    @Mapping(target = "author", source = "user.id")
-//    @Mapping(target = "authorImage", source = "user.imageEntity.path")
-//    @Mapping(target = "authorFirstName", source = "user.firstName")
-//    @Mapping(target = "createdAt", source = "createdAt")
-//    @Mapping(target = "pk", ignore = true)
-//    @Mapping(target = "text", source = "commentEntity.text")
-//    CommentDto toCommentDTO(CommentEntity commentEntity, UserEntity user, LocalDateTime createdAt );
-
-
-
+    @Mapping(target = "author", source = "user.id")
+    @Mapping(target = "authorImage", source = "user.imageEntity.path")
+    @Mapping(target = "authorFirstName", source = "user.firstName")
+    @Mapping(target = "createdAt", source = "commentEntity.createdAt")
+    @Mapping(target = "pk", ignore = true)
+    @Mapping(target = "text", source = "commentEntity.text")
+    CommentDto toCommentDTO(CommentEntity commentEntity, UserEntity user);
+    @Mapping(target = "text", source = "comment.text")
     @Mapping(target = "user", source = "user")
-    @Mapping(target = "text", source = "commentDTO.text")
-    @Mapping(target = "ad", source = "adEntity")
+//   @Mapping(target = "ad", source = "adEntity")
+   CommentEntity toCommentEntity(CreateOrUpdateComment comment, LocalDateTime createdAt, UserEntity user);
 
-    CommentEntity toCommentEntity( CommentDto commentDTO, LocalDateTime createdAt, UserEntity user, AdEntity adEntity);
+//    private LocalDate createdAt;  // Дата и время создания
+//    private String text;          // Текст
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
+//    private UserEntity user;      // Автор комментария
+//    @ManyToOne
+//    @JoinColumn(name = "ad_id", referencedColumnName = "id")
+//    private AdEntity ad;          // Объявление комментария
 
 
 }
-//private int author;              // Идентификатор автора комментария
-//private String authorImage;      // Ссылка на фото автора комментария
-//private String authorFirstName;  // Имя автора комментария
-//private LocalDate createdAt;     // Дата и время создания комментария
-//private int pk;                  // Идентификатор комментария
-//private String text;             // Текст комментария
-
-//private LocalDate createdAt;  // Дата и время создания
-//private String text;          // Текст
-//private UserEntity user;      // Автор комментария
-//private AdEntity ad;

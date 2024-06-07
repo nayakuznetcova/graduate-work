@@ -1,10 +1,13 @@
 package ru.skypro.homework.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.skypro.homework.model.special.IdentifiedObject;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Модель объявления
@@ -23,4 +26,9 @@ public class AdEntity extends IdentifiedObject {
     @OneToOne
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private ImageEntity image;   // Фото объявления
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ad")
+    private List<CommentEntity> comments; //Комментарии объявления
 }
