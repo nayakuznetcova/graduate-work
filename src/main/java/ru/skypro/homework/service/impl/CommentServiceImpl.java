@@ -28,10 +28,9 @@ import java.util.stream.Collectors;
 public class CommentServiceImpl implements CommentServise {
     Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
     CommentMapper commentMapper = Mappers.getMapper(CommentMapper.class);
-    private final AdsService adsService;
+
     private final UserService userService;
     private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
     private final AdRepository adRepository;
 
 

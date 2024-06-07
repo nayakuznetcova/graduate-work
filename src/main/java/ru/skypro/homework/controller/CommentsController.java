@@ -30,7 +30,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/ads")
-public class CommentsController {
+public class CommentsController  implements  CommentsControllerSwagger{
     private final CommentServise commentServise;
 
     @GetMapping("/{id}/comments")
