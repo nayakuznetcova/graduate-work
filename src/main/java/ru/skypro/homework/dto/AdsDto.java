@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 public class AdsDto {
     private int count;
-    private List<AdDto> result;
+    private List<AdDto> results;
 }

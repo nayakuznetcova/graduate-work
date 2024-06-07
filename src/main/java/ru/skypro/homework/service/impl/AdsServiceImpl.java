@@ -24,6 +24,7 @@ import ru.skypro.homework.service.UserService;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,6 +54,20 @@ public class AdsServiceImpl implements AdsService {
     }
 
     @Override
+    public ExtendedAdDto getAdById(int id) {
+        AdEntity adEntityFromBd = adRepository.findById(id);
+        ExtendedAdDto extendedAdDto = adMapper.toExtendedAdDto(adEntityFromBd);
+        extendedAdDto.setImage("/" + adEntityFromBd.getImage().getPath());
+        return extendedAdDto;
+    }
+
+    @Override
+    public void deleteAd(Integer id, Principal principal) {
+        adRepository.findById(id).orElseThrow(()->new NoSuchElementException());
+        adRepository.deleteById(id);
+    }
+
+    @Override
     public AdsDto getAdsByAuthUser(Principal principal){
         UserEntity userFromBd = userService.getUserFromBd(principal);
         List<AdEntity> allAdsByAuthUser = adRepository.findAllByUser(userFromBd);
@@ -68,7 +83,7 @@ public class AdsServiceImpl implements AdsService {
                 })
                 .collect(Collectors.toList());
         AdsDto adsDto = new AdsDto();
-        adsDto.setResult(adDtoList);
+        adsDto.setResults(adDtoList);
         adsDto.setCount(adDtoList.size());
         return adsDto;
     }

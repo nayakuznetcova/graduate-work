@@ -24,11 +24,11 @@ public interface AdMapper {
     @Mapping(target = "pk", source = "id")
     AdDto toAdDto(AdEntity adEntity);
 
-    @Mapping(target = "image", source = "adEntity.image.path")
-    @Mapping(target = "pk", source = "adEntity.id")
-    @Mapping(target = "authorFirstName", source ="userEntity.firstName" )
-    @Mapping(target = "authorLastName", source ="userEntity.lastName" )
-    ExtendedAdDto toExtendedAdDto(AdEntity adEntity, UserEntity userEntity);
-
-
+    @Mapping(target = "pk", source = "id")
+    @Mapping(target = "authorFirstName", source = "user.firstName")
+    @Mapping(target = "authorLastName", source = "user.lastName")
+    @Mapping(target = "email", source = "user.email")
+    @Mapping(target = "phone", source = "user.phone")
+    @Mapping(target = "image", source = "image.path")
+    ExtendedAdDto toExtendedAdDto(AdEntity adEntity);
 }
