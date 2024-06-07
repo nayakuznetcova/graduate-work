@@ -30,14 +30,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/ads")
-public class CommentsController implements CommentsControllerSwagger {
+public class CommentsController  {
     private final CommentServise commentServise;
     @GetMapping("/{id}/comments")
 
     public ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Integer id) {
-       commentServise.getCommentsByAdId(id);
-
-        return null;
+        return ResponseEntity.ok(commentServise.getCommentsByAdId(id));
     }
 
     @PostMapping("/{id}/comments")
@@ -46,8 +44,6 @@ public class CommentsController implements CommentsControllerSwagger {
                                                             , Principal principal) {
 
         CreateOrUpdateComment comment = commentServise.addComment (id, createOrUpdateComment, principal);
-
-
         return ResponseEntity.ok(comment);
     }
 
@@ -58,9 +54,12 @@ public class CommentsController implements CommentsControllerSwagger {
     }
 
     @PatchMapping("/{adId}/comments/{commentId}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Integer adId,
+    public ResponseEntity<CreateOrUpdateComment> updateComment(@PathVariable Integer adId,
                                                     @PathVariable Integer commentId,
-                                                    @RequestBody CommentDto commentDTO) {
+                                                    @RequestBody CreateOrUpdateComment comment) {
+commentServise.updateComment(adId,   commentId,    comment);
+
+
         return null;
     }
 }
