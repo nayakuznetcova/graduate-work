@@ -37,15 +37,15 @@ public class CommentServiceImpl implements CommentServise {
 
     @Override
     public CreateOrUpdateComment addComment(Integer id, CreateOrUpdateComment comment, Principal principal) {
-//        logger.info("метод в сервисе addComment " );
+
 
         UserEntity user = userService.getUserFromBd(principal);
-//
+
         LocalDateTime createdAt = LocalDateTime.now();
         logger.info("метод в сервисе addComment " + createdAt);
 
         AdEntity adEntity = adRepository.findById(id).orElseThrow();
-//        logger.info("объявление " + adEntity);
+
         CommentEntity commentEntity = commentMapper.toCommentEntity(comment, createdAt, user,adEntity);
 
         commentRepository.save(commentEntity);
@@ -78,8 +78,15 @@ public class CommentServiceImpl implements CommentServise {
     public CreateOrUpdateComment updateComment(Integer adId, Integer commentId, CreateOrUpdateComment comment) {
         CommentEntity commentEntity = commentRepository.findById(commentId).orElseThrow();
         commentEntity.setText(comment.getText());
-//commentRepository.sav
-        return null;
+        commentRepository.save(commentEntity);
+
+        return comment;
+    }
+
+    @Override
+    public void deleteComment(Integer adId, Integer commentId) {
+        commentRepository.deleteById(commentId);
+
     }
 
 

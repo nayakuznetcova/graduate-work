@@ -30,8 +30,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/ads")
-public class CommentsController  {
+public class CommentsController {
     private final CommentServise commentServise;
+
     @GetMapping("/{id}/comments")
 
     public ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Integer id) {
@@ -41,25 +42,25 @@ public class CommentsController  {
     @PostMapping("/{id}/comments")
     public ResponseEntity<CreateOrUpdateComment> addComment(@PathVariable Integer id,
                                                             @RequestBody CreateOrUpdateComment createOrUpdateComment
-                                                            , Principal principal) {
+            , Principal principal) {
 
-        CreateOrUpdateComment comment = commentServise.addComment (id, createOrUpdateComment, principal);
+        CreateOrUpdateComment comment = commentServise.addComment(id, createOrUpdateComment, principal);
         return ResponseEntity.ok(comment);
     }
 
     @DeleteMapping("/{adId}/comments/{commentId}")
     public ResponseEntity<?> deleteComment(@PathVariable Integer adId,
                                            @PathVariable Integer commentId) {
-        return null;
+
+        commentServise.deleteComment(adId,commentId);
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{adId}/comments/{commentId}")
     public ResponseEntity<CreateOrUpdateComment> updateComment(@PathVariable Integer adId,
-                                                    @PathVariable Integer commentId,
-                                                    @RequestBody CreateOrUpdateComment comment) {
-commentServise.updateComment(adId,   commentId,    comment);
+                                                               @PathVariable Integer commentId,
+                                                               @RequestBody CreateOrUpdateComment comment) {
 
-
-        return null;
+        return ResponseEntity.ok(commentServise.updateComment(adId, commentId, comment));
     }
 }

@@ -30,6 +30,7 @@ public interface CommentMapper {
     @Mapping(target = "text", source = "comment.text")
     @Mapping(target = "user", source = "user")
    @Mapping(target = "ad", source = "adEntity")
+    @Mapping(target =  "id", ignore = true )
    CommentEntity toCommentEntity(CreateOrUpdateComment comment, LocalDateTime createdAt, UserEntity user, AdEntity adEntity);
 
 
