@@ -19,6 +19,7 @@ import ru.skypro.homework.service.UserService;
 
 import java.security.AuthProvider;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,11 +38,10 @@ public class CommentServiceImpl implements CommentServise {
     @Override
     public CreateOrUpdateComment addComment(Integer id, CreateOrUpdateComment comment, Principal principal) {
 
-
         UserEntity user = userService.getUserFromBd(principal);
 
-        LocalDateTime createdAt = LocalDateTime.now();
-        logger.info("метод в сервисе addComment " + createdAt);
+        LocalDate createdAt = LocalDate.now();
+
 
         AdEntity adEntity = adRepository.findById(id).orElseThrow();
 

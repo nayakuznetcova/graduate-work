@@ -29,25 +29,10 @@ public interface CommentMapper {
 
     @Mapping(target = "text", source = "comment.text")
     @Mapping(target = "user", source = "user")
-   @Mapping(target = "ad", source = "adEntity")
-    @Mapping(target =  "id", ignore = true )
-   CommentEntity toCommentEntity(CreateOrUpdateComment comment, LocalDateTime createdAt, UserEntity user, AdEntity adEntity);
+    @Mapping(target = "ad", source = "adEntity")
+    @Mapping(target = "id", ignore = true)
+    CommentEntity toCommentEntity(CreateOrUpdateComment comment, LocalDate createdAt, UserEntity user, AdEntity adEntity);
 
 
 
-
-//    public class CommentEntity extends IdentifiedObject {
-//        private LocalDate createdAt;  // Дата и время создания
-//        private String text;          // Текст
-//        @ManyToOne
-//        @JoinColumn(name = "user_id", referencedColumnName = "id")
-//        private UserEntity user;      // Автор комментария
-//
-//        @ManyToOne
-//        @JoinColumn(name = "ad_id", referencedColumnName = "id")
-//        private AdEntity ad;          // Объявление комментария
-
-
-
-
-    }
+}

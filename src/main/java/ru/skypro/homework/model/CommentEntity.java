@@ -23,7 +23,6 @@ public class CommentEntity extends IdentifiedObject {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;      // Автор комментария
 
-
     @ManyToOne
     @JoinColumn(name = "ad_id", referencedColumnName = "id")
     private AdEntity ad;          // Объявление комментария
