@@ -127,6 +127,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getInfoUser(Principal principal){
         UserEntity user = getUserFromBd(principal);
-        return userMapper.toUserDto(user);
+        UserDto userDto = userMapper.toUserDto(user);
+        userDto.setImage("/" + user.getImageEntity().getPath());
+        return userDto;
     }
 }

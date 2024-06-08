@@ -1,7 +1,6 @@
 package ru.skypro.homework.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.control.MappingControl;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +21,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,8 +55,11 @@ public class AdsServiceImpl implements AdsService {
     }
 
     @Override
-    public void deleteAd(Integer id, Principal principal) {
-        adRepository.findById(id).orElseThrow(()->new NoSuchElementException());
+    public void deleteAd(int id, Principal principal) {
+        AdEntity adEntity = adRepository.findById(id);
+        if (adEntity==null){
+            throw new NoSuchElementException();
+        }
         adRepository.deleteById(id);
     }
 
@@ -79,5 +82,22 @@ public class AdsServiceImpl implements AdsService {
         adsDto.setResults(adDtoList);
         adsDto.setCount(adDtoList.size());
         return adsDto;
+    }
+
+    @Override
+    public AdDto updateAd(int id, CreateOnUpdateAdDto createOnUpdateAdDto) {
+        AdEntity adEntity = adRepository.findById(id);
+        adEntity.setPrice(createOnUpdateAdDto.getPrice());
+        adEntity.setTitle(createOnUpdateAdDto.getTitle());
+        adEntity.setDescription(createOnUpdateAdDto.getDescription());
+        AdEntity newAdEntity = adRepository.save(adEntity);
+        return adMapper.toAdDto(newAdEntity);
+    }
+
+    @Override
+    public byte[] updateAdImage(int adId, MultipartFile imageFile) throws IOException {
+        AdEntity adEntityFromBd = adRepository.findById(adId);
+        imageService.saveImage(imageFile, adEntityFromBd.getImage());
+        return imageFile.getBytes();
     }
 }

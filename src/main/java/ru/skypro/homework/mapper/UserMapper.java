@@ -18,6 +18,7 @@ public interface UserMapper {
      * @return результат dto пользователя
      */
     @Mapping(target = "image", source = "imageEntity.path")
+    @Mapping(target = "id", source = "id")
     UserDto toUserDto(UserEntity userEntity);
 
     /**
@@ -27,6 +28,7 @@ public interface UserMapper {
      * @return результат модели пользователя
      */
     @Mapping(target = "imageEntity.path", ignore = true)
+    @Mapping(target = "id", source = "id")
     UserEntity toUserEntity(UserDto userDto);
 
     /**

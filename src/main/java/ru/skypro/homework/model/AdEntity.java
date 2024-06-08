@@ -2,6 +2,7 @@ package ru.skypro.homework.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.repository.cdi.Eager;
 import ru.skypro.homework.model.special.IdentifiedObject;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 /**
  * Модель объявления
  */
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(exclude = "id", callSuper = false)
 @Entity
 @Data
 @Table(name = "ads")
@@ -20,7 +21,7 @@ public class AdEntity extends IdentifiedObject {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;     // Автор объявления
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private ImageEntity image;   // Фото объявления
 }

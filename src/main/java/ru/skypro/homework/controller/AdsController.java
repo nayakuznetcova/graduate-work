@@ -65,7 +65,8 @@ public class AdsController implements AdsControllerSwagger {
 
     @PatchMapping("/{id}")
     public ResponseEntity<AdDto> updateAd(@PathVariable Integer id, @RequestBody CreateOnUpdateAdDto createOnUpdateAdDto) {
-        return null;
+        AdDto adDto = adsService.updateAd(id, createOnUpdateAdDto);
+        return ResponseEntity.ok(adDto);
     }
 
     @GetMapping("/me")
@@ -77,6 +78,11 @@ public class AdsController implements AdsControllerSwagger {
     @Transactional
     @PatchMapping(value = "/{id}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<byte[]> updateAdImage(@PathVariable("id") Integer adId, @RequestParam("image") MultipartFile imageFile) {
-        return null;
+        try{
+            byte[] bytes = adsService.updateAdImage(adId, imageFile);
+            return ResponseEntity.ok(bytes);
+        }catch (IOException e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
