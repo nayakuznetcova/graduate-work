@@ -47,8 +47,7 @@ public class UsersController implements UsersControllerSwagger {
     }
 
     @PatchMapping("/me")
-    public ResponseEntity<UserDto> updateInfoUser(@RequestBody UserDto user,
-                                                  Principal principal) {
+    public ResponseEntity<UserDto> updateInfoUser(@RequestBody UserDto user, Principal principal) {
         UserDto userDto = userService.updateInfoUser(user, principal);
         return ResponseEntity.ok(userDto);
     }

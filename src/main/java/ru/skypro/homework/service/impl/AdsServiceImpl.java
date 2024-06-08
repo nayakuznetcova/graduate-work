@@ -1,10 +1,7 @@
 package ru.skypro.homework.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.control.MappingControl;
 import org.mapstruct.factory.Mappers;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.homework.dto.AdDto;
@@ -16,7 +13,6 @@ import ru.skypro.homework.model.AdEntity;
 import ru.skypro.homework.model.ImageEntity;
 import ru.skypro.homework.model.UserEntity;
 import ru.skypro.homework.repository.AdRepository;
-import ru.skypro.homework.repository.UserRepository;
 import ru.skypro.homework.service.AdsService;
 import ru.skypro.homework.service.ImageService;
 import ru.skypro.homework.service.UserService;
@@ -25,6 +21,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,10 +30,7 @@ public class AdsServiceImpl implements AdsService {
     private final UserService userService;
     private final ImageService imageService;
     private final AdRepository adRepository;
-
-    Logger logger = LoggerFactory.getLogger(AdsService.class);
     AdMapper adMapper = Mappers.getMapper(AdMapper.class);
-
     @Override
     public AdDto createAd(CreateOnUpdateAdDto createOnUpdateAdDto, MultipartFile imageFile, Principal principal) throws IOException {
         UserEntity userFromBd = userService.getUserFromBd(principal);
@@ -48,7 +42,6 @@ public class AdsServiceImpl implements AdsService {
 
     @Override
     public AdsDto getAllAds() {
-        logger.info("Метод getAllAds");
         List<AdEntity> adEntities = adRepository.findAll();
         return getAdsDto(adEntities);
     }
@@ -62,8 +55,11 @@ public class AdsServiceImpl implements AdsService {
     }
 
     @Override
-    public void deleteAd(Integer id, Principal principal) {
-        adRepository.findById(id).orElseThrow(()->new NoSuchElementException());
+    public void deleteAd(int id, Principal principal) {
+        AdEntity adEntity = adRepository.findById(id);
+        if (adEntity==null){
+            throw new NoSuchElementException();
+        }
         adRepository.deleteById(id);
     }
 
@@ -88,44 +84,20 @@ public class AdsServiceImpl implements AdsService {
         return adsDto;
     }
 
-    //     получить по id не работает
-//    @Override
-//    public ExtendedAdDto getAdById(Integer id) {
-//        logger.info("Метод getAdById");
-//        AdEntity adEntity = adRepository.findAdEntityById(id).orElseThrow();
-//        logger.info("получение объявления из базы " + adEntity.toString());
-//        Integer adId = adRepository.findIdByTitle(adEntity.getTitle());
-//
-//        UserEntity userEntity = adEntity.getUser();
-//
-//
-//        return adMapper.toExtendedAdDto(adEntity, userEntity);
-//    }
+    @Override
+    public AdDto updateAd(int id, CreateOnUpdateAdDto createOnUpdateAdDto) {
+        AdEntity adEntity = adRepository.findById(id);
+        adEntity.setPrice(createOnUpdateAdDto.getPrice());
+        adEntity.setTitle(createOnUpdateAdDto.getTitle());
+        adEntity.setDescription(createOnUpdateAdDto.getDescription());
+        AdEntity newAdEntity = adRepository.save(adEntity);
+        return adMapper.toAdDto(newAdEntity);
+    }
 
-//    @Override
-//    public void deleteAd(Integer id) {
-//        adRepository.deleteById(id);
-//
-//    }
-
-//    @Override
-//    public AdsDto getAdsByAuthUser(Principal principal) {
-//        logger.info("метод getAdsByAuthUser" );
-//        String userName = principal.getName();
-//        logger.info("пользователь " + userName);
-//        Integer userId = userService.findIdByUserName(userName);// получаем id юзера из базы
-//
-//
-//        List<AdEntity> adEntities =  adRepository.findAdEntityByUser_id(userId);
-//
-//        List<AdDto> adDtoList = adEntities.stream()
-//                .map(adEntity -> adMapper.toAdDto(adEntity))
-//                .collect(Collectors.toList());
-//        AdsDto adsDto = new AdsDto();
-//        adsDto.setResult(adDtoList);
-//        adsDto.setCount(adDtoList.size());
-//        return adsDto;
-//    }
-
-
+    @Override
+    public byte[] updateAdImage(int adId, MultipartFile imageFile) throws IOException {
+        AdEntity adEntityFromBd = adRepository.findById(adId);
+        imageService.saveImage(imageFile, adEntityFromBd.getImage());
+        return imageFile.getBytes();
+    }
 }

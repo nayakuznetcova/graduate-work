@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Модель комментария
  */
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(exclude = "id", callSuper = false)
 @Entity
 @Data
 @Table(name = "comments")
