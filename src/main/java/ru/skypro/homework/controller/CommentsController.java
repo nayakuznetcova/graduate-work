@@ -30,15 +30,22 @@ import javax.persistence.criteria.CriteriaBuilder;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/ads")
-public class CommentsController  implements  CommentsControllerSwagger{
+public class CommentsController {
     private final CommentServise commentServise;
 
     @GetMapping("/{id}/comments")
 
-    public ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Integer id) {
-        return ResponseEntity.ok(commentServise.getCommentsByAdId(id));
+
+    public ResponseEntity<String> getCommentsByAdId(@PathVariable Integer id) {
+
+        String result = commentServise.getCommentsByAdId(id).toString();
+        System.out.println("result = " + result);
+        return ResponseEntity.ok(result);
     }
 
+//    public ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Integer id) {
+//        return ResponseEntity.ok(commentServise.getCommentsByAdId(id));
+//    }
     @PostMapping("/{id}/comments")
     public ResponseEntity<CreateOrUpdateComment> addComment(@PathVariable Integer id,
                                                             @RequestBody CreateOrUpdateComment createOrUpdateComment
@@ -52,7 +59,7 @@ public class CommentsController  implements  CommentsControllerSwagger{
     public ResponseEntity<?> deleteComment(@PathVariable Integer adId,
                                            @PathVariable Integer commentId) {
 
-        commentServise.deleteComment(adId,commentId);
+        commentServise.deleteComment(adId, commentId);
         return ResponseEntity.ok().build();
     }
 
