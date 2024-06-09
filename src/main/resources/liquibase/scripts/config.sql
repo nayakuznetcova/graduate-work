@@ -55,6 +55,12 @@ ALTER TABLE comments ADD CONSTRAINT fk_comments_ads
                   FOREIGN KEY (ad_id)
                   REFERENCES ads(id);
 
+--changeset smakrushin:alter_table_comments3
+ALTER TABLE comments DROP COLUMN created_at
+
+--changeset smakrushin:alter_table_comments4
+ALTER TABLE comments add  created_at bigint
+
 
 
 

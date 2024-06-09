@@ -31,8 +31,21 @@ public interface CommentMapper {
     @Mapping(target = "user", source = "user")
     @Mapping(target = "ad", source = "adEntity")
     @Mapping(target = "id", ignore = true)
-    CommentEntity toCommentEntity(CreateOrUpdateComment comment, LocalDate createdAt, UserEntity user, AdEntity adEntity);
+    CommentEntity toCommentEntity(CreateOrUpdateComment comment, long createdAt, UserEntity user, AdEntity adEntity);
 
 
+//    @Mapping(target = "text", source = "comment.text")
+//    @Mapping(target = "user", source = "user")
+//    @Mapping(target = "ad", source = "adEntity")
+//    @Mapping(target = "id", ignore = true)
+//    CommentEntity toCommentEntity(CreateOrUpdateComment comment, long createdAt, UserEntity user, AdEntity adEntity);
+//
+//
+//    @Mapping(target = "author", source = "user.id")
+//    @Mapping(target = "authorImage", source = "user.imageEntity.path")
+//    @Mapping(target = "authorFirstName", source = "user.firstName")
+//    @Mapping(target = "pk", ignore = true)
+//    @Mapping(target = "text", source = "comment.text")
+//    CommentDto toCommentDTOUpdate(CreateOrUpdateComment comment, long createdAt,UserEntity user,AdEntity adEntity);
 
 }

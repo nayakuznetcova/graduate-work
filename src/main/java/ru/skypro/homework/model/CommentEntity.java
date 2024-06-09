@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @Table(name = "comments")
 public class CommentEntity extends IdentifiedObject {
-    private LocalDate createdAt;  // Дата и время создания
+    private long createdAt;  // Дата и время создания
     private String text;          // Текст
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

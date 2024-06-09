@@ -21,6 +21,7 @@ import java.security.AuthProvider;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,8 @@ public class CommentServiceImpl implements CommentServise {
 
         UserEntity user = userService.getUserFromBd(principal);
 
-        LocalDate createdAt = LocalDate.now();
+        Date current = new Date();
+        long createdAt = current.getTime();
 
 
         AdEntity adEntity = adRepository.findById(id).orElseThrow();
