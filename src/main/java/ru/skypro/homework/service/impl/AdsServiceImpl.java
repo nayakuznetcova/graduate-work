@@ -50,7 +50,10 @@ public class AdsServiceImpl implements AdsService {
     public ExtendedAdDto getAdById(int id) {
         AdEntity adEntityFromBd = adRepository.findById(id);
         ExtendedAdDto extendedAdDto = adMapper.toExtendedAdDto(adEntityFromBd);
-        extendedAdDto.setImage("/" + adEntityFromBd.getImage().getPath());
+        ImageEntity image = adEntityFromBd.getImage();
+        if (image!=null){
+            extendedAdDto.setImage("/" + image.getPath());
+        }
         return extendedAdDto;
     }
 
@@ -74,7 +77,10 @@ public class AdsServiceImpl implements AdsService {
         List<AdDto> adDtoList = adEntities.stream()
                 .map(adEntity -> {
                     AdDto adDto = adMapper.toAdDto(adEntity);
-                    adDto.setImage("/" + adEntity.getImage().getPath());
+                    ImageEntity image = adEntity.getImage();
+                    if (image!=null) {
+                        adDto.setImage("/" + image.getPath());
+                    }
                     return adDto;
                 })
                 .collect(Collectors.toList());

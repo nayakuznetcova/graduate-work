@@ -128,7 +128,10 @@ public class UserServiceImpl implements UserService {
     public UserDto getInfoUser(Principal principal){
         UserEntity user = getUserFromBd(principal);
         UserDto userDto = userMapper.toUserDto(user);
-        userDto.setImage("/" + user.getImageEntity().getPath());
+        ImageEntity imageEntity = user.getImageEntity();
+        if(imageEntity!=null) {
+            userDto.setImage("/" + imageEntity.getPath());
+        }
         return userDto;
     }
 }
