@@ -1,7 +1,6 @@
 package ru.skypro.homework.model.special;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +12,7 @@ import javax.persistence.MappedSuperclass;
  */
 @Data
 @MappedSuperclass
-public class IdentifiedObject {
+public abstract class IdentifiedObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;

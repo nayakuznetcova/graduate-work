@@ -11,7 +11,7 @@ import javax.persistence.Enumerated;
  */
 @Data
 public class UserDto {
-    private int id;               // Идентификатор
+    private Integer id;               // Идентификатор
     private String email;         // Емайл
     private String firstName;     // Имя
     private String lastName;      // Фамилия

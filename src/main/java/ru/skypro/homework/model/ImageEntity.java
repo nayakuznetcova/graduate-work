@@ -9,7 +9,7 @@ import javax.persistence.*;
 /**
  * Модель фото
  */
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(exclude = "id", callSuper = false)
 @Entity
 @Data
 @Table(name = "images")

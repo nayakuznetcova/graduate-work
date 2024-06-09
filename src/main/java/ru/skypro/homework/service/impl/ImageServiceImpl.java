@@ -26,10 +26,8 @@ public class ImageServiceImpl implements ImageService {
     public ImageEntity saveImage(MultipartFile multipartFile, ImageEntity imageEntity) throws IOException {
         if (imageEntity == null) {
             imageEntity = new ImageEntity();
-            return saveImageInFile(multipartFile, imageEntity);
-        } else {
-            return saveImageInFile(multipartFile, imageEntity);
         }
+            return saveImageInFile(multipartFile, imageEntity);
     }
     @Override
     public ImageEntity saveImage(MultipartFile multipartFile) throws IOException {
