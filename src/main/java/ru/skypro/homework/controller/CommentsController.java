@@ -36,7 +36,7 @@ public class CommentsController {
     @GetMapping("/{id}/comments")
 
 
-    public ResponseEntity<String> getCommentsByAdId(@PathVariable Integer id) {
+    public ResponseEntity<String> getCommentsByAdId(@PathVariable int id) {
 
         String result = commentServise.getCommentsByAdId(id).toString();
         System.out.println("result = " + result);
@@ -66,7 +66,7 @@ public class CommentsController {
     @PatchMapping("/{adId}/comments/{commentId}")
     public ResponseEntity<CreateOrUpdateComment> updateComment(@PathVariable Integer adId,
                                                                @PathVariable Integer commentId,
-                                                               @RequestBody CreateOrUpdateComment comment) {
+                                                               @RequestBody CreateOrUpdateComment comment, Principal principal) {
 
         return ResponseEntity.ok(commentServise.updateComment(adId, commentId, comment));
     }
