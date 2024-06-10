@@ -2,6 +2,7 @@ package ru.skypro.homework.mapper;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.skypro.homework.dto.CreateOrUpdateComment;
@@ -15,11 +16,10 @@ import java.util.Date;
 
 import static ru.skypro.homework.model.special.Role.USER;
 
-@SpringBootTest
-public class CommentMapperTest {
-    @Autowired
-    private CommentMapper commentMapperTest;
 
+public class CommentMapperTest {
+
+private final CommentMapper commentMapperTest= Mappers.getMapper(CommentMapper.class);
     @Test
     void mapCreateOrUpdateCommentDtoToModel() {
 

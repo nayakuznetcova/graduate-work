@@ -10,7 +10,8 @@ import ru.skypro.homework.controller.swagger.ImageControllerSwagger;
 import java.io.IOException;
 @CrossOrigin(value = "http://localhost:3000")
 @RestController
-@RequestMapping("/C:/avatar")
+@RequestMapping("/avatar")
+//@RequestMapping("/C:/avatar")
 @RequiredArgsConstructor
 public class ImageController implements ImageControllerSwagger {
     @Value("${path.image}")

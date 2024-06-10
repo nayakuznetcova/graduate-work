@@ -42,7 +42,7 @@ public class ImageServiceImpl implements ImageService {
         Files.deleteIfExists(filePath);
         readAndWriteDirectory(avatarUser, filePath);
         imageEntity.setFileSize(avatarUser.getSize());
-        imageEntity.setPath(filePath.toString());
+        imageEntity.setPath("avatar/"+fileName);// изменили
         imageEntity.setMediaType(avatarUser.getContentType());
         imageRepository.save(imageEntity);
         return imageEntity;
