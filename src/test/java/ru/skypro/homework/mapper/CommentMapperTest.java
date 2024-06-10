@@ -11,6 +11,7 @@ import ru.skypro.homework.model.UserEntity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static ru.skypro.homework.model.special.Role.USER;
 
@@ -40,19 +41,17 @@ public class CommentMapperTest {
 
         CreateOrUpdateComment createOrUpdateComment=new CreateOrUpdateComment();
         createOrUpdateComment.setText("Создание комментария");
+        Date current = new Date();
+        long createdAt = current.getTime();
 
-        LocalDate createdAt = LocalDate.parse("2007-12-03T10:15:30");
 
         CommentEntity commentEntity=commentMapperTest.toCommentEntity(createOrUpdateComment,createdAt,user,adEntity);
 
 
-        //when
-//        LectureDTO dto = mapperUnderTest.toDTO(model);
 
-        //then
         Assertions.assertNotNull(commentEntity);
-//        Assertions.assertNotNull(commentEntity.getUser());
-//        Assertions.assertNotNull(commentEntity.getAd());
+        Assertions.assertNotNull(commentEntity.getUser());
+        Assertions.assertNotNull(commentEntity.getAd());
         Assertions.assertEquals(createOrUpdateComment.getText(), commentEntity.getText());
 
         Assertions.assertEquals(createdAt, commentEntity.getCreatedAt());

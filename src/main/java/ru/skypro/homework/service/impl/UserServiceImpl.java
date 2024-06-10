@@ -131,10 +131,7 @@ public class UserServiceImpl implements UserService {
         userDto.setImage("/" + user.getImageEntity().getPath());
         return userDto;
     }
-//    @Override
-//    public Integer findIdByUserName(String username) {
-//       return userRepository.findIdByUsername(username);
-//    }
+
 
 
 }

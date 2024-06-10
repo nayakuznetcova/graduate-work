@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,9 @@ import ru.skypro.homework.service.CommentServise;
 import ru.skypro.homework.service.impl.CommentServiceImpl;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 
@@ -36,16 +40,11 @@ public class CommentsController {
     @GetMapping("/{id}/comments")
 
 
-    public ResponseEntity<String> getCommentsByAdId(@PathVariable int id) {
 
-        String result = commentServise.getCommentsByAdId(id).toString();
-        System.out.println("result = " + result);
-        return ResponseEntity.ok(result);
+
+    public ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Integer id) {
+        return ResponseEntity.ok(commentServise.getCommentsByAdId(id));
     }
-
-//    public ResponseEntity<CommentsDto> getCommentsByAdId(@PathVariable Integer id) {
-//        return ResponseEntity.ok(commentServise.getCommentsByAdId(id));
-//    }
     @PostMapping("/{id}/comments")
     public ResponseEntity<CreateOrUpdateComment> addComment(@PathVariable Integer id,
                                                             @RequestBody CreateOrUpdateComment createOrUpdateComment

@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,16 +39,14 @@ public class CommentServiceImpl implements CommentServise {
 
     @Override
     public CreateOrUpdateComment addComment(Integer id, CreateOrUpdateComment comment, Principal principal) {
-
         UserEntity user = userService.getUserFromBd(principal);
 
         Date current = new Date();
         long createdAt = current.getTime();
 
-
         AdEntity adEntity = adRepository.findById(id).orElseThrow();
 
-        CommentEntity commentEntity = commentMapper.toCommentEntity(comment, createdAt, user,adEntity);
+        CommentEntity commentEntity = commentMapper.toCommentEntity(comment, createdAt, user, adEntity);
 
         commentRepository.save(commentEntity);
 
@@ -66,10 +65,10 @@ public class CommentServiceImpl implements CommentServise {
                 })
                 .collect(Collectors.toList());
 
-
         CommentsDto commentsDto = new CommentsDto();
-        commentsDto.setResult(commentDtoList);
+        commentsDto.setResults(commentDtoList);
         commentsDto.setCount(commentDtoList.size());
+
         return commentsDto;
 
 
