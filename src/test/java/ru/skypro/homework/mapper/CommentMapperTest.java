@@ -59,20 +59,4 @@ private final CommentMapper commentMapperTest= Mappers.getMapper(CommentMapper.c
 
     }
 
-//    @Test
-//    void shouldProperlyMapDtoToModel() {
-//        //given
-//        LectureDTO dto = new LectureDTO();
-//        dto.setId(11L);
-//        dto.setName("lecture name");
-//
-//        //when
-//        LectureModel model = mapperUnderTest.toModel(dto);
-//
-//        //then
-//        Assertions.assertNotNull(model);
-//        Assertions.assertEquals(dto.getId(), model.getId());
-//        Assertions.assertEquals(dto.getName(), model.getName());
-//    }
-
 }
