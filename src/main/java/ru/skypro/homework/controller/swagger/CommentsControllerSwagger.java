@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.homework.dto.CommentDto;
 import ru.skypro.homework.dto.CommentsDto;
+import ru.skypro.homework.dto.CreateOrUpdateComment;
 
 import java.security.Principal;
 
@@ -54,9 +55,9 @@ public interface CommentsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<CommentDto> addComment(@PathVariable Integer id,
-                                          @RequestBody CommentDto commentDTO,
-                                          Principal principal);
+    ResponseEntity<CreateOrUpdateComment> addComment(@PathVariable Integer id,
+                                                      @RequestBody CreateOrUpdateComment createOrUpdateComment
+            , Principal principal);
 
     @Operation(
             tags = "Комментарии",
@@ -80,7 +81,7 @@ public interface CommentsControllerSwagger {
             }
     )
     ResponseEntity<?> deleteComment(@PathVariable Integer adId,
-                                    @PathVariable Integer commentId);
+                                     @PathVariable Integer commentId);
 
     @Operation(
             tags = "Комментарии",
@@ -106,7 +107,7 @@ public interface CommentsControllerSwagger {
                     )
             }
     )
-    ResponseEntity<CommentDto> updateComment(@PathVariable Integer adId,
-                                             @PathVariable Integer commentId,
-                                             @RequestBody CommentDto commentDTO);
+    ResponseEntity<CreateOrUpdateComment> updateComment(@PathVariable Integer adId,
+                                                        @PathVariable Integer commentId,
+                                                        @RequestBody CreateOrUpdateComment comment);
 }
